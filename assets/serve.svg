@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 400">
+  <rect width="600" height="400" fill="#141519"/>
+  <path d="M120 260h360c0 44-80 80-180 80s-180-36-180-80z" fill="#1f2023"/>
+  <circle cx="300" cy="160" r="70" fill="#ffc31f"/>
+  <text x="300" y="170" text-anchor="middle" font-family="Inter, Arial" font-weight="800" font-size="28" fill="#1a1a1a">Layanan</text>
+</svg>
+
+

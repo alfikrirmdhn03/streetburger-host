@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 400">
+  <rect width="600" height="400" fill="#141519"/>
+  <rect x="120" y="120" width="360" height="160" rx="20" fill="#1f2023" stroke="#2a2c31"/>
+  <rect x="140" y="100" width="80" height="40" rx="8" fill="#ff4d2d"/>
+  <circle cx="200" cy="310" r="18" fill="#ffc31f"/>
+  <circle cx="400" cy="310" r="18" fill="#ffc31f"/>
+  <text x="300" y="210" text-anchor="middle" font-family="Inter, Arial" font-weight="800" font-size="28" fill="#fff">Gerobak</text>
+</svg>
+
+

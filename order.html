@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="id">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Pemesanan - Street Burger</title>
+    <meta name="description" content="Pesan Street Burger via WhatsApp. Pilih menu, isi data, langsung terkirim.">
+    <link rel="icon" href="assets/logo.png">
+    <link rel="stylesheet" href="assets/styles.css">
+    <script defer src="assets/main.js"></script>
+    <script>
+        function buildWhatsappLink(data) {
+            var text = `Halo Admin Street Burger!%0A%0ASaya ingin pesan:%0A- Menu: ${encodeURIComponent(data.menu)}%0A- Jumlah: ${encodeURIComponent(data.jumlah)}%0A- Nama: ${encodeURIComponent(data.nama)}%0A- Nomor: ${encodeURIComponent(data.nomor)}%0A- Lokasi: ${encodeURIComponent(data.lokasi || '-')}`;
+            var phone = '6282283832940';
+            return `https://wa.me/${phone}?text=${text}`;
+        }
+        function submitOrder(e){
+            e.preventDefault();
+            var menu = document.getElementById('menu').value;
+            var jumlah = document.getElementById('jumlah').value || 1;
+            var lokasi = document.getElementById('lokasi').value;
+            var nama = document.getElementById('nama').value;
+            var nomor = document.getElementById('nomor').value;
+            if(!menu || !nama || !nomor){
+                alert('Lengkapi menu, nama, dan nomor WhatsApp.');
+                return;
+            }
+            var url = buildWhatsappLink({menu, jumlah, lokasi, nama, nomor});
+            window.open(url, '_blank');
+        }
+        document.addEventListener('DOMContentLoaded', function(){
+            var params = new URLSearchParams(window.location.search);
+            var preItem = params.get('item');
+            if(preItem){
+                var menuSelect = document.getElementById('menu');
+                for(var i=0;i<menuSelect.options.length;i++){
+                    if(menuSelect.options[i].text === decodeURIComponent(preItem)){
+                        menuSelect.selectedIndex = i;
+                        break;
+                    }
+                }
+            }
+        });
+    </script>
+</head>
+<body>
+    <header class="site-header">
+        <div class="container header-inner">
+            <a class="logo" href="index.html"><img src="assets/logo.png" alt="Street Burger" height="40"><span>Street Burger</span></a>
+            <nav class="nav">
+                <a href="index.html">Beranda</a>
+                <a href="menu.html">Menu</a>
+                <a href="order.html" class="btn btn-sm">Pesan</a>
+                <a href="promo.html">Promo</a>
+                <a href="about.html">Tentang</a>
+                <a href="contact.html">Kontak</a>
+                <a href="blog.html">Blog</a>
+            </nav>
+            <button class="nav-toggle" aria-label="Toggle Navigation">☰</button>
+        </div>
+    </header>
+
+    <main class="container" style="padding:20px 0 40px; max-width:720px">
+        <h1>Pemesanan</h1>
+        <p class="hero note">Untuk area sekitar kampus free ongkir!</p>
+        <form onsubmit="submitOrder(event)" class="card" style="padding:16px">
+            <label>Menu</label>
+            <select id="menu" required style="width:100%; padding:10px; border-radius:10px; background:#141519; color:#fff; border:1px solid #2a2c31; margin:6px 0 12px">
+                <optgroup label="Burger">
+                    <option value="Chicken Burger">Chicken Burger - 18K</option>
+                    <option value="Classic Burger">Classic Burger - 20K</option>
+                    <option value="Chicken Spicy Burger">Chicken Spicy Burger - 22K</option>
+                    <option value="Double Cheese Burger">Double Cheese Burger - 25K</option>
+                    <option value="BBQ Burger">BBQ Burger - 23K</option>
+                    <option value="Big Burger">Big Burger - 35K</option>
+                </optgroup>
+                <optgroup label="Potato">
+                    <option value="Cheese Potato">Cheese Potato - 10K</option>
+                    <option value="Spicy Potato">Spicy Potato - 10K</option>
+                    <option value="French Fries">French Fries - 8K</option>
+                </optgroup>
+                <optgroup label="Coffee">
+                    <option value="Es Kopi Susu Creamy">Es Kopi Susu Creamy - 10K</option>
+                    <option value="Es Kopi Susu Aren">Es Kopi Susu Aren - 12K</option>
+                    <option value="Es Kopi Susu Strong">Es Kopi Susu Strong - 12K</option>
+                </optgroup>
+                <optgroup label="Soft Drink">
+                    <option value="Coca Cola">Coca Cola - 7K</option>
+                    <option value="Sprite">Sprite - 7K</option>
+                    <option value="Fanta">Fanta - 7K</option>
+                    <option value="Mineral">Mineral - 4K</option>
+                </optgroup>
+                <optgroup label="Combo">
+                    <option value="Combo Menu 1">Combo Menu 1 - 27K</option>
+                    <option value="Combo Menu 2">Combo Menu 2 - 25K</option>
+                    <option value="Combo">Combo - 30K</option>
+                </optgroup>
+            </select>
+
+            <label>Jumlah</label>
+            <input id="jumlah" type="number" min="1" value="1" required style="width:100%; padding:10px; border-radius:10px; background:#141519; color:#fff; border:1px solid #2a2c31; margin:6px 0 12px">
+
+            <label>Lokasi Pengiriman (opsional)</label>
+            <input id="lokasi" type="text" placeholder="Contoh: Gerbang Kampus A / Share link Maps" style="width:100%; padding:10px; border-radius:10px; background:#141519; color:#fff; border:1px solid #2a2c31; margin:6px 0 12px">
+
+            <label>Nama</label>
+            <input id="nama" type="text" required style="width:100%; padding:10px; border-radius:10px; background:#141519; color:#fff; border:1px solid #2a2c31; margin:6px 0 12px">
+
+            <label>Nomor WhatsApp</label>
+            <input id="nomor" type="tel" required placeholder="Contoh: 08xxxxxxxxxx" style="width:100%; padding:10px; border-radius:10px; background:#141519; color:#fff; border:1px solid #2a2c31; margin:6px 0 16px">
+
+            <button class="btn btn-lg" type="submit">Kirim Pesanan via WhatsApp</button>
+            <div style="display:flex; gap:8px; margin-top:10px">
+                <a class="btn btn-gofood btn-sm" href="#" onclick="alert('Masukkan link GoFood resmi di sini'); return false;">Order di GoFood</a>
+                <a class="btn btn-grab btn-sm" href="#" onclick="alert('Masukkan link GrabFood resmi di sini'); return false;">Order di GrabFood</a>
+            </div>
+        </form>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container footer-inner">
+            <div class="col">
+                <a class="logo" href="index.html"><img src="assets/logo.png" alt="Street Burger" height="32"><span>Street Burger</span></a>
+                <p>Jam buka: 17.00–23.00</p>
+            </div>
+            <div class="col">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="menu.html">Menu</a></li>
+                    <li><a href="order.html">Order</a></li>
+                    <li><a href="promo.html">Promo</a></li>
+                    <li><a href="contact.html">Kontak</a></li>
+                </ul>
+            </div>
+            <div class="col">
+                <h4>Sosial</h4>
+                <div class="socials">
+                    <a href="https://wa.me/6282283832940">WA</a>
+                    <a href="https://instagram.com/streetburger">IG</a>
+                    <a href="https://tiktok.com/@streetburger">TT</a>
+                </div>
+            </div>
+        </div>
+        <div class="copyright">© Street Burger 2025</div>
+    </footer>
+</body>
+</html>
+
